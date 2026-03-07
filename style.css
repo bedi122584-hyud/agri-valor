@@ -445,6 +445,12 @@ section {
 }
 
 /* Cards Grid */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -650,6 +656,37 @@ body.lang-en .flex-en {
   transform: translateY(0);
 }
 
+/* Mobile Menu Toggle */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 4px;
+}
+
+.menu-toggle .bar {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.menu-toggle.active .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
 /* Mobile */
 @media(max-width: 900px) {
   .hero {
@@ -657,7 +694,8 @@ body.lang-en .flex-en {
     padding-top: 150px;
   }
 
-  .grid-3 {
+  .grid-3,
+  .grid-2 {
     grid-template-columns: 1fr;
   }
 
@@ -665,22 +703,122 @@ body.lang-en .flex-en {
     display: none;
   }
 
-  /* Hide complex orbit on mobile */
   nav {
-    padding: 1rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .menu-toggle {
+    display: flex;
   }
 
   .nav-links {
     display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(11, 17, 14, 0.97);
+    backdrop-filter: blur(16px);
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 1000;
+    padding: 2rem;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    font-size: 1.2rem;
+  }
+
+  .hero-btns {
+    flex-wrap: wrap;
+  }
+
+  .hero-stats {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
   }
 
   section {
     padding: 4rem 1.5rem;
   }
 
+  .process-wrapper {
+    padding: 1.5rem;
+  }
+
   footer {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Small phones */
+@media(max-width: 480px) {
+  .lang-bar {
+    padding: 0.5rem 1rem;
+  }
+
+  .lang-bar span {
+    font-size: 0.65rem;
+  }
+
+  .hero {
+    padding: 130px 1rem 3rem;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+  }
+
+  .hero-btns {
+    flex-direction: column;
+  }
+
+  .hero-btns .btn-primary,
+  .hero-btns .btn-secondary {
+    text-align: center;
+    width: 100%;
+  }
+
+  .stat-num {
+    font-size: 1.5rem;
+  }
+
+  section {
+    padding: 3rem 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .glass-card {
+    padding: 1.5rem;
+  }
+
+  .process-step {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .marche-tagline {
+    font-size: 1.1rem !important;
   }
 }

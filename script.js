@@ -1,5 +1,24 @@
 
 
+// Mobile menu toggle
+const mobileMenu = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+if (mobileMenu && navLinks) {
+    mobileMenu.addEventListener('click', function () {
+        mobileMenu.classList.toggle('active');
+        navLinks.classList.toggle('open');
+    });
+
+    // Close menu when a link is clicked
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function () {
+            mobileMenu.classList.remove('active');
+            navLinks.classList.remove('open');
+        });
+    });
+}
+
 function setLang(lang) {
     document.body.className = lang === 'en' ? 'lang-en' : '';
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
