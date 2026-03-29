@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVI (Agri-Valor Ivoirien) - Analyse du Secteur Biomasse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfcfc;
+            color: #1f2937;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(229, 231, 235, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #166534, #854d0e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold gradient-text">AVI Analytics</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-sm font-medium text-gray-700 hover:text-green-700 transition">Accueil</a>
+                    <a href="#gisement" class="text-sm font-medium text-gray-700 hover:text-green-700 transition">Gisement Cacao</a>
+                    <a href="#marche" class="text-sm font-medium text-gray-700 hover:text-green-700 transition">Marché & Énergie</a>
+                    <a href="#cadre" class="text-sm font-medium text-gray-700 hover:text-green-700 transition">Cadre & Objectifs</a>
+                    <a href="#impact" class="text-sm font-medium text-gray-700 hover:text-green-700 transition">Impact Carbone</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <header class="mb-12 text-center max-w-3xl mx-auto">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Intelligence Sectorielle : Valorisation de la Biomasse Cacao en Côte d'Ivoire</h1>
+            <p class="text-lg text-gray-600">Plateforme de données stratégiques pour <strong class="text-green-800">Agri-Valor Ivoirien (AVI)</strong>. Ce tableau de bord synthétise le potentiel énergétique des résidus de cacao, la demande industrielle et les opportunités du marché carbone.</p>
+        </header>
+
+        <section id="gisement" class="mb-16 scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-green-700 pl-3">1. Le Gisement Cacao en Côte d'Ivoire</h2>
+                <p class="text-gray-600 mt-2">Cette section quantifie la matière première disponible. La Côte d'Ivoire, premier producteur mondial de cacao, génère des volumes massifs de déchets (coques, cabosses, tiges) majoritairement inexploités. Les données illustrent l'opportunité d'approvisionnement pour AVI, notamment dans les zones à forte concentration de coopératives comme San-Pedro.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="glass-card rounded-xl p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">Taux de Valorisation des Déchets de Cacao</h3>
+                    <div class="chart-container">
+                        <canvas id="valorisationChart"></canvas>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-4 text-center">Source: Estimations MINEDD / ICCO (2023)</p>
+                </div>
+
+                <div class="flex flex-col justify-center space-y-6">
+                    <div class="bg-green-50 rounded-lg p-5 border border-green-100">
+                        <h4 class="text-sm font-semibold text-green-800 uppercase tracking-wide">Volume Annuel Estimé</h4>
+                        <div class="mt-2 flex items-baseline gap-2">
+                            <span class="text-4xl font-bold text-gray-900">~3.2M</span>
+                            <span class="text-lg text-gray-600">Tonnes</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Coques, tiges et cabosses vides produites annuellement. <br><em>(Source: ICCO / FAOSTAT, 2022)</em></p>
+                    </div>
+
+                    <div class="bg-yellow-50 rounded-lg p-5 border border-yellow-100">
+                        <h4 class="text-sm font-semibold text-yellow-800 uppercase tracking-wide">Maillage Territorial (San-Pedro)</h4>
+                        <div class="mt-2 flex items-baseline gap-2">
+                            <span class="text-4xl font-bold text-gray-900">>400</span>
+                            <span class="text-lg text-gray-600">Coopératives Actives</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Sur environ 3000 coopératives au niveau national, la région de San-Pedro concentre un bassin d'approvisionnement critique. <br><em>(Source: Conseil du Café-Cacao, Rapport 2022)</em></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="marche" class="mb-16 scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-yellow-600 pl-3">2. Marché de la Biomasse & Demande Industrielle</h2>
+                <p class="text-gray-600 mt-2">Analyse de la demande cible : l'industrie lourde ivoirienne (notamment les cimenteries comme Holcim, Dangote, CIMAF). Cette section compare la performance énergétique de la biomasse de cacao face aux combustibles fossiles importés pour démontrer la viabilité technique et économique du produit d'AVI.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="glass-card rounded-xl p-6 col-span-1 lg:col-span-2">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Comparaison du Pouvoir Calorifique Inférieur (PCI)</h3>
+                    <div class="chart-container">
+                        <canvas id="pciChart"></canvas>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2 text-center">Source: CIRAD / Littérature scientifique (2021)</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="glass-card rounded-xl p-5 border-l-4 border-gray-800">
+                        <h4 class="text-sm font-bold text-gray-700 uppercase">Mix Énergétique Cimenteries CI</h4>
+                        <p class="text-2xl font-bold text-gray-900 mt-2">>85% Importé</p>
+                        <p class="text-sm text-gray-600 mt-1">Dépendance massive au Petcoke et au Charbon. <br><em>(Source: Ministère des Mines et du Pétrole, 2022)</em></p>
+                    </div>
+                    
+                    <div class="glass-card rounded-xl p-5 border-l-4 border-yellow-600">
+                        <h4 class="text-sm font-bold text-gray-700 uppercase">Consommation Cimenteries</h4>
+                        <p class="text-2xl font-bold text-gray-900 mt-2">~150 000 TEP/an</p>
+                        <p class="text-sm text-gray-600 mt-1">Tonnes Équivalent Pétrole estimées pour l'ensemble du secteur. <br><em>(Source: Estimation sectorielle, 2023)</em></p>
+                    </div>
+
+                    <div class="glass-card rounded-xl p-5 border-l-4 border-green-600">
+                        <h4 class="text-sm font-bold text-gray-700 uppercase">Prix Biomasse Importée</h4>
+                        <p class="text-2xl font-bold text-gray-900 mt-2">70k - 110k FCFA/t</p>
+                        <p class="text-sm text-gray-600 mt-1">Prix moyen (CIF Abidjan/San-Pedro) des pellets industriels ou coques importées. <br><em>(Source: Données Douanes/Marché, 2023)</em></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cadre" class="mb-16 scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-blue-600 pl-3">3. Cadre Institutionnel & Objectifs CI-ENERGIES</h2>
+                <p class="text-gray-600 mt-2">Comprendre l'environnement réglementaire est crucial. Cette section résume les ambitions de l'État en matière d'énergies renouvelables, le rôle des régulateurs et les nouvelles contraintes internationales (EUDR) qui favorisent la traçabilité et la valorisation locale initiée par AVI.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="glass-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Objectifs Nationaux (Horizon 2030)</h3>
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">Objectif CI-ENERGIES : Mix EnR</span>
+                            <span class="text-sm font-bold text-green-700">45%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div class="bg-green-600 h-4 rounded-full" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">Part Actuelle Biomasse Moderne (hors bois chauffe)</span>
+                            <span class="text-sm font-bold text-yellow-600">&lt; 2%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div class="bg-yellow-500 h-4 rounded-full" style="width: 5%"></div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-4">Le gouvernement pousse activement des projets (ex: Centrale Biomasse Biokala 46MW) ouvrant la voie à l'intégration de la biomasse dans le réseau. <br><em>(Source: CI-ENERGIES / Ministère, 2023)</em></p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-lg p-4 bg-white hover:shadow-md transition cursor-default">
+                        <h4 class="font-bold text-gray-800">Rôle de l'ANARE-CI</h4>
+                        <p class="text-sm text-gray-600 mt-1">Régule principalement le secteur de l'électricité. Si AVI produit du combustible pour les cimenteries, l'ANARE-CI n'intervient pas directement. Elle intervient si AVI vend de l'électricité sur le réseau national (contrats d'achat d'énergie - PPA).</p>
+                        <p class="text-xs text-gray-400 mt-2">Source: Loi portant Code de l'Électricité CI</p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4 bg-white hover:shadow-md transition cursor-default">
+                        <h4 class="font-bold text-gray-800">Cadre Européen EUDR (Déforestation)</h4>
+                        <p class="text-sm text-gray-600 mt-1">Exige la géolocalisation stricte des parcelles de cacao. <strong>Opportunité pour AVI :</strong> Les coopératives doivent désormais maîtriser leur chaîne logistique, facilitant l'agrégation et la traçabilité des déchets (coques) pour une certification biomasse durable.</p>
+                        <p class="text-xs text-gray-400 mt-2">Source: Règlement UE 2023/1115</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impact" class="mb-16 scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-emerald-600 pl-3">4. Impact Environnemental & Marché Carbone</h2>
+                <p class="text-gray-600 mt-2">Section interactive permettant d'estimer l'impact environnemental direct du modèle d'AVI. En substituant le charbon par la biomasse de cacao, AVI évite des émissions massives de CO2. Utilisez le simulateur pour évaluer les revenus potentiels liés à la vente de crédits carbone (Gold Standard, Verra) accessibles aux PME.</p>
+            </div>
+
+            <div class="glass-card rounded-xl p-8 bg-gradient-to-br from-white to-emerald-50">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-6">Simulateur d'Impact AVI</h3>
+                        
+                        <div class="mb-6">
+                            <label for="biomassInput" class="block text-sm font-medium text-gray-700 mb-2">Volume de biomasse cacao produite et vendue (Tonnes/an)</label>
+                            <input type="range" id="biomassInput" min="1000" max="50000" step="1000" value="10000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                            <div class="mt-2 text-right font-bold text-emerald-700 text-xl"><span id="biomassVal">10,000</span> Tonnes</div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-3 bg-white rounded shadow-sm">
+                                <span class="text-sm text-gray-600">Facteur d'émission Charbon</span>
+                                <span class="font-mono text-sm font-bold">~2.4 tCO2/t</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white rounded shadow-sm">
+                                <span class="text-sm text-gray-600">Facteur d'émission Biomasse (nette)</span>
+                                <span class="font-mono text-sm font-bold">~0.1 tCO2/t*</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white rounded shadow-sm">
+                                <span class="text-sm text-gray-600">Prix Moyen Crédit Carbone (Afrique)</span>
+                                <span class="font-mono text-sm font-bold">10 USD / tCO2</span>
+                            </div>
+                            <p class="text-xs text-gray-500 italic">*Considérée biogénique, émissions liées au transport/transformation uniquement. (Source: IPCC, Voluntary Carbon Market 2023)</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col justify-center items-center bg-white rounded-xl shadow-inner p-8 border border-emerald-100">
+                        <h4 class="text-lg font-semibold text-gray-600 mb-8 text-center">Résultats Estimés Annuels</h4>
+                        
+                        <div class="text-center mb-8">
+                            <p class="text-sm text-gray-500 uppercase tracking-widest mb-1">CO2 Évité</p>
+                            <p class="text-5xl font-black text-emerald-600"><span id="co2Result">23,000</span></p>
+                            <p class="text-sm font-medium text-emerald-800 mt-1">Tonnes de CO2e</p>
+                        </div>
+
+                        <div class="text-center">
+                            <p class="text-sm text-gray-500 uppercase tracking-widest mb-1">Revenu Carbone Potentiel</p>
+                            <p class="text-4xl font-black text-gray-800"><span id="revenueResult">230,000</span> $</p>
+                            <p class="text-sm font-medium text-gray-500 mt-1">Sur le marché volontaire (VCM)</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center text-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>&copy; 2026 AVI (Agri-Valor Ivoirien) - Tableau de bord analytique généré pour planification stratégique.</p>
+            <p class="mt-2 text-xs text-gray-500">Avertissement : Les données présentées sont des agrégations et estimations sectorielles (ICCO, MINEDD, Banque Mondiale, CIRAD) destinées à la modélisation d'opportunités d'affaires. Des audits spécifiques sont recommandés pour des business plans finaux.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data Configuration
+        const chartColors = {
+            green: '#166534',
+            lightGreen: '#4ade80',
+            yellow: '#ca8a04',
+            dark: '#1f2937',
+            gray: '#9ca3af'
+        };
+
+        // 1. Donut Chart: Valorisation des déchets
+        const ctxVal = document.getElementById('valorisationChart').getContext('2d');
+        new Chart(ctxVal, {
+            type: 'doughnut',
+            data: {
+                labels: ['Brûlés, Pourris ou Abandonnés', 'Valorisés (Énergie/Compost)'],
+                datasets: [{
+                    data: [95, 5],
+                    backgroundColor: [chartColors.dark, chartColors.green],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { font: { family: 'Inter' } } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ' ' + context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+
+        // 2. Bar Chart: Pouvoir Calorifique
+        const ctxPci = document.getElementById('pciChart').getContext('2d');
+        new Chart(ctxPci, {
+            type: 'bar',
+            data: {
+                labels: ['Petcoke (Importé)', 'Charbon (Importé)', 'Coques de Cacao (AVI)', 'Bois de chauffe (Humide)'],
+                datasets: [{
+                    label: 'Pouvoir Calorifique (MJ/kg)',
+                    data: [32, 24, 16.5, 10],
+                    backgroundColor: [chartColors.dark, chartColors.gray, chartColors.green, chartColors.yellow],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y', // Horizontal bar chart
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Mégajoules par Kilogramme (MJ/kg)', font: { family: 'Inter' } }
+                    },
+                    y: {
+                        ticks: { font: { family: 'Inter', weight: 'bold' } }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.x + ' MJ/kg';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 3. Interactive Calculator Logic
+        const biomassInput = document.getElementById('biomassInput');
+        const biomassValDisplay = document.getElementById('biomassVal');
+        const co2ResultDisplay = document.getElementById('co2Result');
+        const revenueResultDisplay = document.getElementById('revenueResult');
+
+        // Constants for calculation
+        const emissionFactorCoal = 2.4; // tCO2/t
+        const emissionFactorBiomass = 0.1; // tCO2/t
+        const substitutionRatio = 1.45; // Approx 1.45t of cocoa biomass = 1t of coal based on PCI (24 / 16.5)
+        const carbonPrice = 10; // USD/tCO2
+
+        function updateCalculator() {
+            const biomassTons = parseInt(biomassInput.value, 10);
+            
+            // Format number with commas
+            biomassValDisplay.textContent = biomassTons.toLocaleString('en-US');
+
+            // Logic: How much coal is avoided by using this biomass?
+            const coalReplaced = biomassTons / substitutionRatio;
+            
+            // CO2 Avoided = (Emissions from coal replaced) - (Emissions from biomass used)
+            const co2Avoided = (coalReplaced * emissionFactorCoal) - (biomassTons * emissionFactorBiomass);
+            
+            // Format and display CO2
+            const roundedCo2 = Math.max(0, Math.round(co2Avoided)); // Prevent negative
+            co2ResultDisplay.textContent = roundedCo2.toLocaleString('en-US');
+
+            // Calculate Revenue
+            const revenue = roundedCo2 * carbonPrice;
+            revenueResultDisplay.textContent = revenue.toLocaleString('en-US');
+        }
+
+        // Event listener for the slider
+        biomassInput.addEventListener('input', updateCalculator);
+        
+        // Initial call to set values on load
+        updateCalculator();
+
+    </script>
+</body>
+</html>
